@@ -61,7 +61,8 @@ except:
 
 
 # Upload file to s3 storage
-s3_bucket_name = 'new-bucket-e05ab0e0'
+s3_bucket_name = 'applicant-task'
+s3_path = 'r5d4'
 s3_conn = boto3.client('s3')
 
 try:
@@ -70,7 +71,7 @@ try:
     with (ec2InsDatafile, 'r') as fh:
         s3_conn.put_object(
             Bucket=s3_bucket_name,
-            Key='system_info' + requests.get(meta_data +'/' + instance_id) + '.txt',
+            Key=s3_path + 'system_info' + requests.get(meta_data +'/' + instance_id) + '.txt',
             Body=fh.read()
         )
     print("File has been uploaded into " + s3_bucket_name + " S3 bucket with instance_id key.")
